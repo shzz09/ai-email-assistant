@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Email Assistant</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .output-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f6f9;
+            border-radius: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .value {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>📧 AI Email Assistant</h2>
+
+    <form method="POST" action="/process">
+        <textarea name="email" placeholder="Enter your email here..."></textarea>
+        <button type="submit">Generate</button>
+    </form>
+
+    {% if result %}
+    <div class="output-box">
+        <div class="label">📌 Subject:</div>
+        <div class="value">{{ result.split('Subject:')[1].split('Tone:')[0] }}</div>
+
+        <div class="label">🎯 Tone:</div>
+        <div class="value">{{ result.split('Tone:')[1].split('Summary:')[0] }}</div>
+
+        <div class="label">📝 Summary:</div>
+        <div class="value">{{ result.split('Summary:')[1].split('Rewritten Email:')[0] }}</div>
+
+        <div class="label">✍️ Rewritten Email:</div>
+        <div class="value">{{ result.split('Rewritten Email:')[1] }}</div>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
